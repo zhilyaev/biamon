@@ -15,7 +15,7 @@ func (d *Docker) Push() (a []string) {
 }
 
 func (c *Config) Push() (a []string) {
-	for i := 0; i < len(c.Dockers)-1; i++ {
+	for i := 0; i < len(c.Dockers); i++ {
 		a = append(a, c.Dockers[i].Push()...)
 	}
 	return a

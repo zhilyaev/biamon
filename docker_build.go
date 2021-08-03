@@ -13,7 +13,7 @@ func (d *Docker) Build() string {
 }
 
 func (c *Config) Build() (a []string) {
-	for i := 0; i < len(c.Dockers)-1; i++ {
+	for i := 0; i < len(c.Dockers); i++ {
 		a = append(a, c.Dockers[i].Build())
 	}
 	return a

@@ -2,6 +2,9 @@ package main
 
 import (
 	"bytes"
+	"errors"
+	"github.com/Masterminds/sprig/v3"
+	"github.com/hairyhenderson/gomplate/v3"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"text/template"
@@ -49,6 +52,8 @@ func NewBiamonTpl(file string) (*Config, error) {
 	return NewBiamon(b.Bytes())
 }
 
+var ErrWrongTemplater = errors.New("wrong templater use sprig or gomplate")
+
 func templating(file string, data interface{}) (*bytes.Buffer, error) {
 	if data == nil {
 		data = map[string]interface{}{}
@@ -59,7 +64,17 @@ func templating(file string, data interface{}) (*bytes.Buffer, error) {
 		return nil, err
 	}
 
-	t := template.Must(template.New("tpl").Parse(string(src)))
+	var fm template.FuncMap
+	switch Templater {
+	case "gomplate":
+		fm = gomplate.Funcs(nil)
+	case "sprig":
+		fm = sprig.TxtFuncMap()
+	default:
+		return nil, ErrWrongTemplater
+	}
+
+	t := template.Must(template.New("tpl").Funcs(fm).Parse(string(src)))
 	var buf bytes.Buffer
 	err = t.Execute(&buf, data)
 	if err != nil {

@@ -19,6 +19,7 @@ type Config struct {
 }
 
 type Docker struct {
+	Ctl string `default:"docker" yaml:"ctl"`
 	Dockerfile, Context string
 
 	Destinations []string

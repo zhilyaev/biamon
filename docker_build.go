@@ -6,10 +6,17 @@ import (
 )
 
 func (d *Docker) Build() string {
+	if d.Ctl == "" {
+		d.Ctl = "docker"
+	}
+
 	tags := strings.Join(d.Destinations, " -t ")
 	args := strings.Join(d.BuildFlags, " ")
-	labels := strings.Join(d.BuildLabels, " --label ")
-	return fmt.Sprintf("docker build %s --label %s -t %s -f %s %s", args, labels, tags, d.Dockerfile, d.Context)
+	var labels string
+	if len(d.BuildLabels) > 0 {
+		labels = "--label " + strings.Join(d.BuildLabels, " --label ")
+	}
+	return fmt.Sprintf("%s build %s %s -t %s -f %s %s", d.Ctl, args, labels, tags, d.Dockerfile, d.Context)
 }
 
 func (c *Config) Build() (a []string) {

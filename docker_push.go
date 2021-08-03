@@ -8,7 +8,7 @@ import (
 func (d *Docker) Push() (a []string) {
 	args := strings.Join(d.PushFlags, " ")
 
-	for i := 0; i < len(d.Destinations)-1; i++ {
+	for i := 0; i < len(d.Destinations); i++ {
 		a = append(a, fmt.Sprintf("docker push %s %s", args, d.Destinations[i]))
 	}
 	return a

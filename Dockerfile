@@ -23,8 +23,10 @@ RUN go build -a -o /biamon .
 
 ###
 FROM docker:${DOCKER_VERSION}-git as base-release
+COPY --from=docker/buildx-bin /buildx /usr/libexec/docker/cli-plugins/docker-buildx
 RUN apk --no-cache add ca-certificates
 ENTRYPOINT ["/bin/biamon"]
+
 
 ###
 FROM base-release as goreleaser

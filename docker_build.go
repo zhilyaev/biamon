@@ -6,9 +6,9 @@ import (
 )
 
 func (d *Docker) Build() string {
-	tags := strings.Join(d.Destinations, "-t ")
+	tags := strings.Join(d.Destinations, " -t ")
 	args := strings.Join(d.BuildFlags, " ")
-	labels := strings.Join(d.BuildLabels, "--label ")
+	labels := strings.Join(d.BuildLabels, " --label ")
 	return fmt.Sprintf("docker build %s --label %s -t %s -f %s %s", args, labels, tags, d.Dockerfile, d.Context)
 }
 

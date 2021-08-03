@@ -22,7 +22,7 @@ COPY pkg pkg
 RUN go build -a -o /biamon .
 
 ###
-FROM docker:${GOLANG_VERSION}-git as base-release
+FROM docker:${DOCKER_VERSION}-git as base-release
 RUN apk --no-cache add ca-certificates
 ENTRYPOINT ["/bin/biamon"]
 

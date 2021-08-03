@@ -3,11 +3,12 @@ package main
 import (
 	"bytes"
 	"errors"
+	"io/ioutil"
+	"text/template"
+
 	"github.com/Masterminds/sprig/v3"
 	"github.com/hairyhenderson/gomplate/v3"
 	"gopkg.in/yaml.v2"
-	"io/ioutil"
-	"text/template"
 )
 
 type Config struct {

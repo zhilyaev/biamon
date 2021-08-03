@@ -9,7 +9,8 @@ import (
 
 var commands = []*cli.Command{
 	{
-		Name: "render",
+		Name:  "config",
+		Usage: "show render config",
 		Action: func(c *cli.Context) error {
 			b, err := templating(ConfigTplFile, nil)
 			if err != nil {
@@ -62,6 +63,6 @@ var commands = []*cli.Command{
 }
 
 func command404(c *cli.Context, s string) {
-	fmt.Printf("👻 Command %q not found\n", s)
+	fmt.Printf("Command %q not found\n", s)
 	os.Exit(127)
 }

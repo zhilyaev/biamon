@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	"github.com/urfave/cli/v2"
-	"log"
 	"os"
 )
 
@@ -22,6 +22,7 @@ func main() {
 
 	err := Ctl.Run(os.Args)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
